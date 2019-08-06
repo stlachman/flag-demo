@@ -2,10 +2,13 @@ import React from "react";
 import { Global, css } from "@emotion/core";
 import axios from "axios";
 
+import Navigation from "../Navigation/Navigation";
+
 class Home extends React.Component {
   state = {
     countries: [],
-    loading: true
+    loading: true,
+    error: ""
   };
 
   render() {
@@ -32,6 +35,7 @@ class Home extends React.Component {
             body {
               background: hsl(0, 0%, 98%);
               color: hsl(200, 15%, 8%);
+              margin: 0;
             }
 
             h1,
@@ -46,10 +50,11 @@ class Home extends React.Component {
             }
           `}
         />
+        <Navigation />
         <main
           css={css`
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 7rem auto 0;
           `}
         >
           <section
@@ -61,12 +66,11 @@ class Home extends React.Component {
           >
             {countries &&
               countries.map(country => {
-                console.log(country);
                 return (
                   <div
                     css={css`
                       border-radius: 5px;
-                      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
+                      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
                       background: #fefefe;
                     `}
                     key={country.name}
@@ -143,7 +147,7 @@ class Home extends React.Component {
     axios
       .get(`https://restcountries.eu/rest/v2/all`)
       .then(res => this.setState({ countries: res.data, loading: false }))
-      .catch(console.error);
+      .catch(err => this.setState({ error: err.data, loading: false }));
   }
 }
 
