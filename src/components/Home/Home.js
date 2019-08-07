@@ -4,6 +4,7 @@ import axios from "axios";
 
 import Navigation from "../Navigation/Navigation";
 import Card from "../Card/Card";
+import SearchBar from "../SearchBar/SearchBar";
 import GlobalStyles from "../GlobalStyles";
 
 class Home extends React.Component {
@@ -17,9 +18,14 @@ class Home extends React.Component {
     const { countries, loading } = this.state;
     if (loading) {
       return (
-        <section>
+        <main
+          css={css`
+            max-width: 1200px;
+            margin: 7rem auto 0;
+          `}
+        >
           <h1>Loading Countries</h1>
-        </section>
+        </main>
       );
     }
     return (
@@ -32,11 +38,7 @@ class Home extends React.Component {
             margin: 7rem auto 0;
           `}
         >
-          <div>
-            <form>
-              <input type="text" />
-            </form>
-          </div>
+          <SearchBar countries={countries} />
           <section
             css={css`
               display: grid;
