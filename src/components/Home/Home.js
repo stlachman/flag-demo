@@ -10,13 +10,28 @@ import GlobalStyles from "../GlobalStyles";
 class Home extends React.Component {
   state = {
     countries: [],
-    loading: true,
-    error: ""
+    error: "",
+    region: "",
+    regions: ["", "Africa", "Americas", "Asia", "Europe", "Oceania"]
+  };
+
+  componentDidMount() {
+    axios
+      .get(`https://restcountries.eu/rest/v2/all`)
+      .then(res => this.setState({ countries: res.data }))
+      .catch(err => this.setState({ error: err.data }));
+  }
+
+  updateRegion = region => {
+    axios
+      .get(`https://restcountries.eu/rest/v2/region/${region}`)
+      .then(res => this.setState({ countries: res.data, region: region }))
+      .catch(err => this.setState({ error: err.data }));
   };
 
   render() {
-    const { countries, loading } = this.state;
-    if (loading) {
+    const { countries, region, regions } = this.state;
+    if (countries.length === 0) {
       return (
         <main
           css={css`
@@ -38,7 +53,11 @@ class Home extends React.Component {
             margin: 7rem auto 0;
           `}
         >
-          <SearchBar countries={countries} />
+          <SearchBar
+            region={region}
+            updateRegion={this.updateRegion}
+            regions={regions}
+          />
           <section
             css={css`
               display: grid;
@@ -54,13 +73,6 @@ class Home extends React.Component {
         </main>
       </>
     );
-  }
-
-  componentDidMount() {
-    axios
-      .get(`https://restcountries.eu/rest/v2/all`)
-      .then(res => this.setState({ countries: res.data, loading: false }))
-      .catch(err => this.setState({ error: err.data, loading: false }));
   }
 }
 

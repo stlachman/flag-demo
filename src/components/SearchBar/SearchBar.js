@@ -1,65 +1,73 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { css } from "@emotion/core";
 
-const SearchBar = props => {
-  const [country, setCountry] = useState("");
-  const [region, setRegion] = useState("");
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: ""
+    };
+  }
 
-  return (
-    <div>
-      <form>
-        <label
-          css={css`
-            border: 0;
-            clip: rect(0 0 0 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px;
-          `}
-          htmlFor="country"
-        >
-          Country
-        </label>
-        <input
-          id="country"
-          type="text"
-          placeholder="Search for a country..."
-          value={country}
-          onChange={e => setCountry(e.target.value)}
-        />
+  componentDidUpdate(prevProps) {
+    if (this.props.region !== prevProps.region) {
+      this.props.updateRegion(this.props.region);
+    }
+  }
 
-        <button>Search</button>
-      </form>
+  render() {
+    return (
+      <div
+        css={css`
+          display: flex;
+          justify-content: space-between;
+        `}
+      >
+        <form>
+          <label
+            css={css`
+              border: 0;
+              clip: rect(0 0 0 0);
+              height: 1px;
+              margin: -1px;
+              overflow: hidden;
+              padding: 0;
+              position: absolute;
+              width: 1px;
+            `}
+            htmlFor="country"
+          >
+            Country
+          </label>
+          <input
+            id="country"
+            type="text"
+            placeholder="Search for a country..."
+            // value={country}
+            // onChange={e => setCountry(e.target.value)}
+          />
 
-      <form>
-        <label htmlFor="region">Region</label>
-        <select
-          id="region"
-          onChange={e => setRegion(e.target.value)}
-          onBlur={e => setRegion(e.target.value)}
-        >
-          {" "}
-          {props.countries
-            .reduce(
-              (unique, country) =>
-                unique.includes(country.region)
-                  ? unique
-                  : [...unique, country.region],
-              []
-            )
-            .sort()
-            .map(region => (
-              <option key={region} value={region}>
+          <button>Search</button>
+        </form>
+
+        <form>
+          <label htmlFor="region">Region</label>
+          <select
+            id="region"
+            onChange={e => this.props.updateRegion(e.target.value)}
+            onBlur={e => this.props.updateRegion(e.target.value)}
+          >
+            {" "}
+            {this.props.regions.map(region => (
+              <option key={region} value={region.toLowerCase()}>
                 {region === "" ? "All" : region}
               </option>
             ))}
-        </select>
-      </form>
-    </div>
-  );
-};
+          </select>
+        </form>
+      </div>
+    );
+  }
+}
 
 export default SearchBar;
