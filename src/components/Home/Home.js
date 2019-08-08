@@ -12,7 +12,7 @@ class Home extends React.Component {
     countries: [],
     error: "",
     region: "",
-    regions: ["", "Africa", "Americas", "Asia", "Europe", "Oceania"],
+    regions: ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"],
     country: ""
   };
 
@@ -24,10 +24,17 @@ class Home extends React.Component {
   }
 
   updateRegion = region => {
-    axios
-      .get(`https://restcountries.eu/rest/v2/region/${region}`)
-      .then(res => this.setState({ countries: res.data, region: region }))
-      .catch(err => this.setState({ error: err.data }));
+    if (region === "all") {
+      axios
+        .get(`https://restcountries.eu/rest/v2/all`)
+        .then(res => this.setState({ countries: res.data, region: region }))
+        .catch(err => this.setState({ error: err.data }));
+    } else {
+      axios
+        .get(`https://restcountries.eu/rest/v2/region/${region}`)
+        .then(res => this.setState({ countries: res.data, region: region }))
+        .catch(err => this.setState({ error: err.data }));
+    }
   };
 
   searchCountry = name => {

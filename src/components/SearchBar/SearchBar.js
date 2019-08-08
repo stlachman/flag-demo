@@ -73,7 +73,7 @@ class SearchBar extends React.Component {
             {" "}
             {this.props.regions.map(region => (
               <option key={region} value={region.toLowerCase()}>
-                {region === "" ? "All" : region}
+                {region}
               </option>
             ))}
           </select>
