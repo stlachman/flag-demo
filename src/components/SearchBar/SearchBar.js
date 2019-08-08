@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/core";
 
 class SearchBar extends React.Component {
@@ -15,7 +15,20 @@ class SearchBar extends React.Component {
     }
   }
 
+  handleChange = e => {
+    this.setState({
+      query: e.target.value
+    });
+  };
+
+  handleSubmit = e => {
+    const { query } = this.state;
+    e.preventDefault();
+    this.props.searchCountry(query);
+  };
+
   render() {
+    const { query } = this.state;
     return (
       <div
         css={css`
@@ -23,7 +36,7 @@ class SearchBar extends React.Component {
           justify-content: space-between;
         `}
       >
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <label
             css={css`
               border: 0;
@@ -43,8 +56,8 @@ class SearchBar extends React.Component {
             id="country"
             type="text"
             placeholder="Search for a country..."
-            // value={country}
-            // onChange={e => setCountry(e.target.value)}
+            value={query}
+            onChange={this.handleChange}
           />
 
           <button>Search</button>

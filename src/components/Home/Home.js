@@ -12,7 +12,8 @@ class Home extends React.Component {
     countries: [],
     error: "",
     region: "",
-    regions: ["", "Africa", "Americas", "Asia", "Europe", "Oceania"]
+    regions: ["", "Africa", "Americas", "Asia", "Europe", "Oceania"],
+    country: ""
   };
 
   componentDidMount() {
@@ -26,6 +27,13 @@ class Home extends React.Component {
     axios
       .get(`https://restcountries.eu/rest/v2/region/${region}`)
       .then(res => this.setState({ countries: res.data, region: region }))
+      .catch(err => this.setState({ error: err.data }));
+  };
+
+  searchCountry = name => {
+    axios
+      .get(`https://restcountries.eu/rest/v2/name/${name}?fullText=true`)
+      .then(res => this.setState({ countries: res.data, country: name }))
       .catch(err => this.setState({ error: err.data }));
   };
 
@@ -57,6 +65,7 @@ class Home extends React.Component {
             region={region}
             updateRegion={this.updateRegion}
             regions={regions}
+            searchCountry={this.searchCountry}
           />
           <section
             css={css`
