@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { css } from "@emotion/core";
 
 const Card = props => {
@@ -24,13 +25,15 @@ const Card = props => {
           padding: 2rem;
         `}
       >
-        <h3
-          css={css`
-            font-size: 1.6rem;
-          `}
-        >
-          {props.country.name}
-        </h3>
+        <Link to={`/country/${props.country.name.toLowerCase()}`}>
+          <h3
+            css={css`
+              font-size: 1.6rem;
+            `}
+          >
+            {props.country.name}
+          </h3>
+        </Link>
         <ul
           css={css`
             padding-left: 0;
