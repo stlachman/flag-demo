@@ -11,12 +11,21 @@ class Country extends React.Component {
     super(props);
     this.state = {
       country: [],
-      borders: []
+      code: [],
+      borders: [],
+      name: ""
     };
   }
   componentDidMount() {
     const name = this.props.match.params.id;
     this.fetchCountry(name);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.name !== prevState.name) {
+      this.props.history.push(`/country/${this.state.name.toLowerCase()}`);
+      this.fetchCountry(this.state.name);
+    }
   }
 
   fetchCountry = name => {
@@ -25,24 +34,28 @@ class Country extends React.Component {
         `https://restcountries.eu/rest/v2/name/${name}?fields=name;flag;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders`
       )
       .then(res => {
-        this.setState({ country: res.data[0] });
+        this.setState({
+          country: res.data[0],
+          code: { abbreviations: res.data[0].borders },
+          borders: []
+        });
       })
+      .then(() =>
+        this.state.code.abbreviations.map(border =>
+          axios
+            .get(`https://restcountries.eu/rest/v2/alpha/${border}?fields=name`)
+            .then(res =>
+              this.setState({
+                borders: [...this.state.borders, res.data.name]
+              })
+            )
+        )
+      )
       .catch(console.error);
   };
 
-  // convertBorder = inititals => {
-  //   axios
-  //     .get(`https://restcountries.eu/rest/v2/alpha/${inititals}`)
-  //     .then(res =>
-  //       this.setState({
-  //         borders: [this.state.borders, ...res.data.name]
-  //       })
-  //     )
-  //     .catch(console.error);
-  // };
-
   render() {
-    const { country } = this.state;
+    const { country, borders } = this.state;
     const renderMultipleItems = arr => {
       return arr.length > 1 ? arr.map(item => item + ",") : arr[0];
     };
@@ -86,7 +99,11 @@ class Country extends React.Component {
               flex-wrap: wrap;
             `}
           >
-            <div>
+            <div
+              css={css`
+                width: 35%;
+              `}
+            >
               <Link
                 to="/"
                 css={css`
@@ -117,8 +134,9 @@ class Country extends React.Component {
               css={css`
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: 3fr 1fr;
-                margin-left: 10%;
+                grid-template-rows: 2fr 1fr;
+                margin: 0 0 0 4rem;
+                width: 58%;
               `}
             >
               <div
@@ -149,23 +167,42 @@ class Country extends React.Component {
                   grid-column: 1 / 3;
                 `}
               >
-                <p>
+                <div
+                  css={css`
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-around;
+                  `}
+                >
                   Border Countries:{" "}
-                  {country.borders.map(border => (
+                  {borders.map(border => (
                     <span
                       css={css`
                         margin: 0 1.5rem;
                         padding: 1rem 2rem;
                         font-weight: 600;
+                        display: inline-block;
                         font-size: 1.4rem;
                         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+                        margin: 1rem 0.5rem;
                       `}
                       key={border}
                     >
-                      {this.convertBorder(border)}
+                      <span
+                        onClick={() => {
+                          this.setState({
+                            borders: [],
+                            country: [],
+                            code: [],
+                            name: border
+                          });
+                        }}
+                      >
+                        {border}
+                      </span>
                     </span>
                   ))}
-                </p>
+                </div>
               </div>
             </div>
           </div>
