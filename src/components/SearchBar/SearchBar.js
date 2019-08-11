@@ -32,9 +32,14 @@ class SearchBar extends React.Component {
     return (
       <div
         css={css`
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 2rem;
+          margin: 0 auto 2rem;
+          max-width: 400px;
+          text-align: center;
+          @media (min-width: 900px) {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+          }
         `}
       >
         <form onSubmit={this.handleSubmit}>
@@ -64,7 +69,14 @@ class SearchBar extends React.Component {
           <button>Search</button>
         </form>
 
-        <form>
+        <form
+          css={css`
+            margin: 2rem 0 0;
+            @media (min-width: 900px) {
+              margin: 0;
+            }
+          `}
+        >
           <label htmlFor="region">Region</label>
           <select
             id="region"
