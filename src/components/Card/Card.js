@@ -4,8 +4,10 @@ import { css } from "@emotion/core";
 
 const Card = props => {
   return (
-    <div
+    <Link
       css={css`
+        text-decoration: none;
+        color: hsl(200, 15%, 8%);
         border-radius: 5px;
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
         background: #fefefe;
@@ -21,6 +23,7 @@ const Card = props => {
           max-width: initial;
         }
       `}
+      to={`/country/${props.country.name.toLowerCase()}`}
     >
       <img
         src={props.country.flag}
@@ -36,21 +39,15 @@ const Card = props => {
           padding: 2rem;
         `}
       >
-        <Link
+        <h3
           css={css`
-            text-decoration: none;
+            font-size: 1.6rem;
+            color: hsl(200, 15%, 8%);
           `}
-          to={`/country/${props.country.name.toLowerCase()}`}
         >
-          <h3
-            css={css`
-              font-size: 1.6rem;
-              color: hsl(200, 15%, 8%);
-            `}
-          >
-            {props.country.name}
-          </h3>
-        </Link>
+          {props.country.name}
+        </h3>
+
         <ul
           css={css`
             padding-left: 0;
@@ -65,7 +62,7 @@ const Card = props => {
             >
               Population:
             </span>{" "}
-            {props.country.population}
+            {props.country.population.toLocaleString()}
           </li>
           <li>
             <span
@@ -89,7 +86,7 @@ const Card = props => {
           </li>
         </ul>
       </div>
-    </div>
+    </Link>
   );
 };
 

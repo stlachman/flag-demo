@@ -176,7 +176,7 @@ class Country extends React.Component {
                   >
                     Population:
                   </span>{" "}
-                  {country.population}
+                  {country.population.toLocaleString()}
                 </p>
                 <p>
                   <span
