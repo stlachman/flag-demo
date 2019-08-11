@@ -39,10 +39,12 @@ class Home extends React.Component {
   };
 
   searchCountry = name => {
-    axios
-      .get(`https://restcountries.eu/rest/v2/name/${name}?fullText=true`)
-      .then(res => this.setState({ countries: res.data, country: name }))
-      .catch(err => this.setState({ error: err.data }));
+    const { countries } = this.state;
+    this.setState({
+      countries: countries.filter(country =>
+        country.name.toLowerCase().includes(name)
+      )
+    });
   };
 
   render() {

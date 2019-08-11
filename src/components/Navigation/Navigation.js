@@ -28,21 +28,7 @@ const Navigation = () => {
             Where in the world?
           </h2>
         </nav>
-        <div>
-          <button
-            css={css`
-              border: 0;
-              font-size: 1.6rem;
-              font-weight: 600;
-
-              &:hover {
-                cursor: pointer;
-              }
-            `}
-          >
-            Dark Mode
-          </button>
-        </div>
+        <div />
       </div>
     </header>
   );
