@@ -55,6 +55,7 @@ class Home extends React.Component {
             margin: 7rem auto 0;
             display: flex;
             justify-content: center;
+            padding: 0 1.5rem;
           `}
         >
           <Loader type="Plane" color="#AAB7B8" height={80} width={80} />
@@ -69,6 +70,7 @@ class Home extends React.Component {
           css={css`
             max-width: 1200px;
             margin: 7rem auto 0;
+            padding: 0 1.5rem;
           `}
         >
           <SearchBar
@@ -80,8 +82,12 @@ class Home extends React.Component {
           <section
             css={css`
               display: grid;
-              grid-template-columns: repeat(4, 1fr);
+              grid-template-columns: 1fr;
               grid-gap: 2rem;
+
+              @media (min-width: 900px) {
+                grid-template-columns: repeat(4, 1fr);
+              }
             `}
           >
             {countries &&

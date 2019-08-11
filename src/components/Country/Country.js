@@ -98,11 +98,18 @@ class Country extends React.Component {
             css={css`
               display: flex;
               flex-wrap: wrap;
+              justify-content: center;
+              @media (min-width: 900px) {
+                justify-content: flex-start;
+              }
             `}
           >
             <div
               css={css`
-                width: 35%;
+                width: 55%;
+                @media (min-width: 900px) {
+                  width: 35%;
+                }
               `}
             >
               <Link
@@ -133,11 +140,16 @@ class Country extends React.Component {
 
             <div
               css={css`
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: 2fr 1fr;
-                margin: 0 0 0 4rem;
-                width: 58%;
+                width: 55%;
+                margin: 2rem 0 0 0;
+
+                @media (min-width: 900px) {
+                  width: 58%;
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  grid-template-rows: 2fr 1fr;
+                  margin: 0 0 0 4rem;
+                }
               `}
             >
               <div
@@ -225,7 +237,9 @@ class Country extends React.Component {
               </div>
               <div
                 css={css`
-                  grid-column: 1 / 3;
+                  @media (min-width: 900px) {
+                    grid-column: 1 / 3;
+                  }
                 `}
               >
                 <div
@@ -235,7 +249,14 @@ class Country extends React.Component {
                     justify-content: space-around;
                   `}
                 >
-                  <h3>Border Countries:</h3>{" "}
+                  <h3
+                    css={css`
+                      width: 100%;
+                      text-align: center;
+                    `}
+                  >
+                    Border Countries:
+                  </h3>{" "}
                   {borders.map(border => (
                     <span
                       css={css`
