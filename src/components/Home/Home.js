@@ -1,6 +1,7 @@
 import React from "react";
 import { css } from "@emotion/core";
 import axios from "axios";
+import Loader from "react-loader-spinner";
 
 import Navigation from "../Navigation/Navigation";
 import Card from "../Card/Card";
@@ -52,9 +53,11 @@ class Home extends React.Component {
           css={css`
             max-width: 1200px;
             margin: 7rem auto 0;
+            display: flex;
+            justify-content: center;
           `}
         >
-          <h1>Loading Countries</h1>
+          <Loader type="Plane" color="#AAB7B8" height={80} width={80} />
         </main>
       );
     }

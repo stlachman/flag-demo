@@ -34,6 +34,7 @@ class SearchBar extends React.Component {
         css={css`
           display: flex;
           justify-content: space-between;
+          margin-bottom: 2rem;
         `}
       >
         <form onSubmit={this.handleSubmit}>

@@ -2,6 +2,7 @@ import React from "react";
 import { css } from "@emotion/core";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Loader from "react-loader-spinner";
 
 import Navigation from "../Navigation/Navigation";
 import GlobalStyles from "../GlobalStyles";
@@ -63,7 +64,7 @@ class Country extends React.Component {
     const renderObj = (arr, key) => {
       return arr[0][key];
     };
-    // console.log(country);
+
     if (country.length === 0) {
       return (
         <>
@@ -73,11 +74,11 @@ class Country extends React.Component {
             css={css`
               max-width: 1200px;
               margin: 7rem auto 0;
+              display: flex;
+              justify-content: center;
             `}
           >
-            <div>
-              <h1>Loading Country</h1>
-            </div>
+            <Loader type="Plane" color="#AAB7B8" height={80} width={80} />
           </main>
         </>
       );
@@ -145,10 +146,46 @@ class Country extends React.Component {
                 `}
               >
                 <h2>{country.name}</h2>
-                <p>Native Name: {country.nativeName}</p>
-                <p>Population: {country.population}</p>
-                <p>Region: {country.region}</p>
-                <p>Capital: {country.capital}</p>
+                <p>
+                  <span
+                    css={css`
+                      font-weight: 600;
+                    `}
+                  >
+                    Native Name:
+                  </span>{" "}
+                  {country.nativeName}
+                </p>
+                <p>
+                  <span
+                    css={css`
+                      font-weight: 600;
+                    `}
+                  >
+                    Population:
+                  </span>{" "}
+                  {country.population}
+                </p>
+                <p>
+                  <span
+                    css={css`
+                      font-weight: 600;
+                    `}
+                  >
+                    Region:
+                  </span>{" "}
+                  {country.region}
+                </p>
+                <p>
+                  <span
+                    css={css`
+                      font-weight: 600;
+                    `}
+                  >
+                    Capital:
+                  </span>{" "}
+                  {country.capital}
+                </p>
               </div>
               <div
                 css={css`
@@ -156,11 +193,35 @@ class Country extends React.Component {
                 `}
               >
                 <p>
-                  Top Level Domain:{" "}
+                  <span
+                    css={css`
+                      font-weight: 600;
+                    `}
+                  >
+                    Top Level Domain:
+                  </span>{" "}
                   {renderMultipleItems(country.topLevelDomain)}
                 </p>
-                <p>Currencies: {renderObj(country.currencies, "name")}</p>
-                <p>Languages: {renderObj(country.languages, "name")}</p>
+                <p>
+                  <span
+                    css={css`
+                      font-weight: 600;
+                    `}
+                  >
+                    Currencies:
+                  </span>{" "}
+                  {renderObj(country.currencies, "name")}
+                </p>
+                <p>
+                  <span
+                    css={css`
+                      font-weight: 600;
+                    `}
+                  >
+                    Languages:
+                  </span>{" "}
+                  {renderObj(country.languages, "name")}
+                </p>
               </div>
               <div
                 css={css`
@@ -174,7 +235,7 @@ class Country extends React.Component {
                     justify-content: space-around;
                   `}
                 >
-                  Border Countries:{" "}
+                  <h3>Border Countries:</h3>{" "}
                   {borders.map(border => (
                     <span
                       css={css`
@@ -189,6 +250,11 @@ class Country extends React.Component {
                       key={border}
                     >
                       <span
+                        css={css`
+                          &:hover {
+                            cursor: pointer;
+                          }
+                        `}
                         onClick={() => {
                           this.setState({
                             borders: [],

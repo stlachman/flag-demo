@@ -1,5 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 import Home from "./components/Home/Home";
 import Country from "./components/Country/Country";
 
