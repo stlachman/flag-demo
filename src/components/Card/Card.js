@@ -25,7 +25,12 @@ const Card = props => {
           padding: 2rem;
         `}
       >
-        <Link to={`/country/${props.country.name.toLowerCase()}`}>
+        <Link
+          css={css`
+            text-decoration: none;
+          `}
+          to={`/country/${props.country.name.toLowerCase()}`}
+        >
           <h3
             css={css`
               font-size: 1.6rem;

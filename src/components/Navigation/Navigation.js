@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { css } from "@emotion/core";
 
 const Navigation = () => {
@@ -21,15 +20,13 @@ const Navigation = () => {
         `}
       >
         <nav>
-          <Link to="/">
-            <h2
-              css={css`
-                font-size: 1.8rem;
-              `}
-            >
-              Where in the world?
-            </h2>
-          </Link>
+          <h2
+            css={css`
+              font-size: 1.8rem;
+            `}
+          >
+            Where in the world?
+          </h2>
         </nav>
         <div>
           <button
