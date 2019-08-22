@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { css } from "@emotion/core";
 
 const Card = props => {
+  // console.log(props);
   return (
     <Link
       css={css`
@@ -23,7 +24,7 @@ const Card = props => {
           max-width: initial;
         }
       `}
-      to={`/country/${props.country.name.toLowerCase()}`}
+      to={`/country/${props.country.alpha3Code}`}
     >
       <img
         src={props.country.flag}
